@@ -8,10 +8,27 @@ alunos = [
     {"id": 2, "nome": "Gabriel"},
     {"id": 3, "nome": "Brendon"}
 ]
+
 #endpoint: buscar aluno com id
 @app.route('/buscaraluno/<int:id>', methods=['GET'])
 def buscar_alunos(id):
-    return f"aluno de codigo: {id}"
+    for aluno  in alunos:
+        if aluno ["id"] == id:
+            return aluno
+    return "Aluno não localizado"    
+    
+
+
+
+    #endpoint: deletar aluno com id
+@app.route('/deletaraluno/<int:id>', methods=['DELETE'])
+def deletar_aluno(id):
+    for i,  aluno in enumerate (alunos):
+        if aluno ["id"] == id:
+            alunos.pop(i)
+            return alunos
+    return "Aluno não localizado"    
+    
 
 #endpoint: buscar todos os alunos
 @app.route('/listaralunos', methods=['GET'])
@@ -28,7 +45,7 @@ def adicionar_aluno():
     novo["id"] = len(alunos)+1
     alunos.append(novo)
 
-    return f"Aluno Cadastrado: {id} {nome}"
+    return alunos
 
 
 #endpoint: adicionar json aluno
